@@ -2,7 +2,6 @@ import React from "react";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
@@ -11,20 +10,22 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
+import IconButton from '@material-ui/core/IconButton';
 
 
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 // компоненты jsx
-import MainContent from "./MainContent";
+import MainPage from "./MainPage/MainPage.jsx";
 
 // компоненты css
-import "./ComponentsCss/Head.css"
+import "./Head.css"
 
 export default function Head() {
     const useStyles = makeStyles((theme) => ({
         title: {
-            flexGrow: 10,
+            flexGrow: 20,
         },
     }));
 
@@ -54,7 +55,7 @@ export default function Head() {
     return (
         <Router>
             <div>
-                <AppBar position="static">
+                <AppBar position="fixed">
                     <Toolbar>
                         <div>
                             <MenuIcon
@@ -71,6 +72,8 @@ export default function Head() {
                                 keepMounted
                                 open={open}
                                 onClose={handleClose}
+                                onExiting={handleClose}
+                                onClick={handleClose}
                             >
                                 <Link to="/">
                                     <StyledMenuItem>
@@ -82,16 +85,16 @@ export default function Head() {
                                 </Link>
                             </Menu>
                         </div>
-                        <Typography variant="body1" align='center' className={classes.title}>
+                        <Typography variant="h5" align='center' className={classes.title}>
                             Рецепты.ру
                         </Typography>
-                        <Button color="inherit">Login</Button>
+                        <IconButton aria-label="delete"><PersonPinIcon fontSize="large"/></IconButton>
                     </Toolbar>
                 </AppBar>
             </div>
             <Switch>
-                <Route exact path="/" component={MainContent}/>
-                <Route path="*" component={MainContent}/>
+                <Route exact path="/" component={MainPage}/>
+                <Route path="*" component={MainPage}/>
             </Switch>
         </Router>
     );

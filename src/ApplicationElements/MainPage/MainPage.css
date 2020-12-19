@@ -1,0 +1,10 @@
+.block {
+    margin-top: 80px;
+}
+
+.block1 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 10em;
+    padding: 10px; /* Отступ внутри блока */
+}
