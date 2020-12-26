@@ -19,14 +19,8 @@ class CardsForRecipe extends Component {
         super(props);
         this.state = {
             expanded: false,
+            boolean: 0,
             array: [],
-            j: 0,
-            name: RecipeArray.name[Math.floor(Math.random() * RecipeArray.name.length)],
-            date: RecipeArray.date[Math.floor(Math.random() * RecipeArray.date.length)],
-            img: RecipeArray.img[Math.floor(Math.random() * RecipeArray.img.length)],
-            description: RecipeArray.description[Math.floor(Math.random() * RecipeArray.description.length)],
-            comments: RecipeArray.comments[Math.floor(Math.random() * RecipeArray.comments.length)],
-            like: RecipeArray.like[Math.floor(Math.random() * RecipeArray.like.length)],
         };
     }
 
@@ -35,7 +29,7 @@ class CardsForRecipe extends Component {
     handleExpandClick = () => {
         let i = !this.state.expanded;
         this.setState({expanded: i});
-        if (this.state.j === 0)
+        if (this.state.boolean === 0)
             this.outputItem();
     };
 
@@ -57,24 +51,25 @@ class CardsForRecipe extends Component {
                 {items.text}
             </Typography>
         );
-        this.setState({array: list});
-        this.setState({j: 1})
+        this.setState({boolean: 1}, () => {
+            this.setState({array: list})
+        });
     };
 
     render() {
         return (
             <Card className="root">
                 <CardHeader
-                    title={this.state.name}
-                    subheader={this.state.date}
+                    title={this.props.item.name}
+                    subheader={this.props.item.date}
                 />
                 <CardMedia
                     className="media"
-                    image={this.state.img}
+                    image={this.props.item.img}
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {this.state.description}
+                        {this.props.item.description}
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
@@ -82,13 +77,13 @@ class CardsForRecipe extends Component {
                         <FavoriteIcon/>
                     </IconButton>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {this.state.like}
+                        {this.props.item.like}
                     </Typography>
                     <IconButton aria-label="share">
                         <ForumIcon/>
                     </IconButton>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {this.state.comments}
+                        {this.props.item.comments}
                     </Typography>
 
                     <IconButton
